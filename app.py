@@ -45,6 +45,7 @@ def deletar_musica(codigo):
     excluir_musica(codigo)
     return redirect("/admin")
 
+@app.route()
 
 
 
