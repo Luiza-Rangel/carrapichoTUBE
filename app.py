@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request, redirect
 import mysql.connector
-from model.musica import lista_musicas, excluir_musica
+from model.musica import recuperar_musica, excluir_musica
 from model.genero import recuperar_generos
-from model.musica import salvar_musica
+from model.musica import salvar_musica, ativo
 
 
 app = Flask(__name__)
@@ -11,7 +11,7 @@ app = Flask(__name__)
 @app.route("/")
 def pg_principal():
 
-    musicas = lista_musicas()
+    musicas = recuperar_musica()
     generos = recuperar_generos()
 
 
@@ -21,7 +21,7 @@ def pg_principal():
 
 @app.route("/admin")
 def pg_administracao():
-    musicas = lista_musicas()
+    musicas = recuperar_musica()
     generos = recuperar_generos()
     return render_template("administracao.html", musicas = musicas, generos = generos)
 
@@ -45,7 +45,15 @@ def deletar_musica(codigo):
     excluir_musica(codigo)
     return redirect("/admin")
 
-@app.route()
+@app.route("/musica/ativar/<codigo>/<status>")
+def atualizar(codigo,status):
+    ativo(codigo, status)
+    return redirect("/admin")
+
+@app.route("/cadastro")
+def pagina_cad():
+    #fazer dnv
+
 
 
 
