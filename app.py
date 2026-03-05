@@ -3,7 +3,7 @@ import mysql.connector
 from model.musica import recuperar_musica, excluir_musica
 from model.genero import recuperar_generos
 from model.musica import salvar_musica, ativo
-
+from model.cadastro import cadastro
 
 app = Flask(__name__)
 
@@ -51,15 +51,21 @@ def atualizar(codigo,status):
     return redirect("/admin")
 
 @app.route("/cadastro")
-def pagina_cad():
-    #fazer dnv
+def cadastro():
+    # Renderiza o arquivo criado na pasta templates
+    return render_template("cadastro.html")
 
+@app.route("/cadastro", methods=["POST"])
+def rota_cadastro_usuario():
+    usuario = request.form.get("nome")
+    senha = request.form.get("senha")
+    cadastro(usuario, senha)
+    return redirect("/cadastro")
 
+@app.route("/login")
+def rota_login():
+    return redirect("login.html")
 
-
-
-    
- 
 
 if __name__ == "__main__":
     app.run(debug=True)

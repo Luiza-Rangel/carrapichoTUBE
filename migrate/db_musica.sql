@@ -7,7 +7,6 @@ CREATE TABLE IF NOT EXISTS genero (
  cor VARCHAR(10)
 );
 
-
 CREATE TABLE IF NOT EXISTS musica (
  codigo INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
  cantor VARCHAR(50),
@@ -17,3 +16,9 @@ CREATE TABLE IF NOT EXISTS musica (
  nome_genero VARCHAR(30),
  CONSTRAINT FK_musica_genero foreign key (nome_genero) REFERENCES genero (nome_genero)
 );
+
+CREATE TABLE IF NOT EXISTS cadastro(
+usuario VARCHAR(50) PRIMARY KEY,
+senha VARCHAR(100) NOT NULL
+);
+
