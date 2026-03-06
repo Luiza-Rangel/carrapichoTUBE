@@ -3,7 +3,7 @@ import mysql.connector
 from model.musica import recuperar_musica, excluir_musica
 from model.genero import recuperar_generos
 from model.musica import salvar_musica, ativo
-from model.cadastro import cadastro
+from model.cadastro import cadastro, verificar_usuario
 
 app = Flask(__name__)
 
@@ -62,9 +62,17 @@ def rota_cadastro_usuario():
     cadastro(usuario, senha)
     return redirect("/cadastro")
 
-@app.route("/login")
+@app.route("/login", methods=["POST"])
 def rota_login():
-    return redirect("login.html")
+    login = request.form.get("usuario")
+    senha = request.form.get("senha")
+    usuario = verificar_usuario(login, senha)
+    if usuario:
+        return redirect("/admin")
+    else:
+        return redirect("/login")
+
+
 
 
 if __name__ == "__main__":
